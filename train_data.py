@@ -1,6 +1,6 @@
 import pymongo
 import spacy
-import pickle
+import re
 from pymongo import MongoClient
 
 # Tải mô hình spaCy
@@ -8,7 +8,7 @@ nlp = spacy.load("en_core_web_md")
 
 # Dữ liệu huấn luyện (FAQ)
 FAQ = [
-{"question": "What is your name?", "answer": "I am a chatbot built using spaCy!"},
+{"question": "What is your name?", "answer": "I am a chatbot built by HuuDung!"},
     {"question": "How are you?", "answer": "I'm just a piece of code, but thanks for asking!"},
     {"question": "What can you do?", "answer": "I can chat with you, answer questions, and much more!"},
     {"question": "Tell me a joke.", "answer": "Why don't scientists trust atoms? Because they make up everything!"},
@@ -208,6 +208,11 @@ client = MongoClient(
 db = client['chatbot_db']
 collection = db['faq_collection']
 
+# Hàm tiền xử lý văn bản
+def preprocess_text(text):
+    text = text.lower()  # Chuyển đổi thành chữ thường
+    text = re.sub(r'[^a-z0-9\s]', '', text)
+    return text
 
 # Chuyển đổi câu hỏi thành vector và lưu vào MongoDB
 def save_training_data(data):
@@ -216,12 +221,12 @@ def save_training_data(data):
 
     # Chuyển đổi câu hỏi thành vector và lưu vào MongoDB
     for entry in data:
-        question_vector = nlp(entry['question']).vector.tolist()
+        processed_question = preprocess_text(entry['question'])
+        question_vector = nlp(processed_question).vector.tolist()
         entry['question_vector'] = question_vector
 
     collection.insert_many(data)
     print("Training data saved to MongoDB.")
-
 
 if __name__ == "__main__":
     save_training_data(FAQ)

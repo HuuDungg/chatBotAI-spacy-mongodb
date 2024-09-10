@@ -1,4 +1,9 @@
 FAQ = [
+{"question": "What is your name?", "answer": "I am a chatbot built by HuuDung!"},
+    {"question": "How are you?", "answer": "I'm just a piece of code, but thanks for asking!"},
+    {"question": "What can you do?", "answer": "I can chat with you, answer questions, and much more!"},
+    {"question": "Tell me a joke.", "answer": "Why don't scientists trust atoms? Because they make up everything!"},
+    {"question": "Goodbye", "answer": "Goodbye! Have a nice day!"},
     {"question": "What is Dragon Ball?", "answer": "The Dragon Ball series is a franchise mostly consisting of manga and anime. It revolves around a boy named Son Goku who grows up to become the protector of Earth, along with his allies and his sons, Gohan and Goten."},
     {"question": "Is the anime canon?", "answer": "In Dragon Ball and Dragon Ball Z, the manga is the original canon. The anime is generally not included due to the huge amount of filler. Dragon Ball Z Kai is considered more canon since it stays truer to the manga."},
     {"question": "What about Dragon Ball GT?", "answer": "Dragon Ball GT is considered a side story to the original Dragon Ball Z and has several contradictions with Dragon Ball Super."},
