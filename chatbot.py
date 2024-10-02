@@ -14,8 +14,8 @@ app = Flask(__name__)
 # Tải mô hình spaCy
 nlp = spacy.load("en_core_web_md")
 
-# Sử dụng mô hình t5-small mà không cần token
-paraphraser = pipeline("text2text-generation", model="t5-small", framework="tf")  # Sử dụng TensorFlow
+# Sử dụng mô hình t5
+paraphraser = pipeline("text2text-generation", model="t5-base", framework="tf")
 
 # Kết nối đến MongoDB
 client = MongoClient(
@@ -32,10 +32,8 @@ def preprocess_text(text):
 
 
 def paraphrase_text(text):
-    paraphrased_texts = paraphraser(text, max_length=50, num_return_sequences=5, do_sample=True, top_k=50, top_p=0.95)
-    # Chọn ngẫu nhiên một câu từ danh sách các câu đã diễn đạt lại
-    random_paraphrase = random.choice([output['generated_text'] for output in paraphrased_texts])
-    return random_paraphrase
+    paraphrased_texts = paraphraser(text, max_length=50, num_return_sequences=1, do_sample=True, top_k=50, top_p=0.95)
+    return paraphrased_texts
 
 
 # Tải dữ liệu huấn luyện từ MongoDB
