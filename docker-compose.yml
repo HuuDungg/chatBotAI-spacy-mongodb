@@ -1,0 +1,11 @@
+version: "3.9"  # Phiên bản docker-compose, có thể thay đổi nếu cần
+
+services:
+  chatbot:
+    build: .  # Sử dụng Dockerfile trong thư mục hiện tại
+    ports:
+      - "5000:5000"  # Mở cổng 5000 cho Flask
+    volumes:
+      - .:/app  # Gắn kết thư mục hiện tại của host với /app trong container
+    environment:
+      FLASK_ENV: development  # Tùy chọn cho môi trường phát triển Flask (có thể thay đổi)
